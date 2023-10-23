@@ -112,9 +112,23 @@ class min_heap {
     type value(int index) {
          return ptr[index]; 
     }
+    // Versão constante da função value. O(1)
+    const type value(int index) const {
+         return ptr[index]; 
+    }
 
-    // Insere um elemento na heap. O(n) no pior caso(capacidade cheia) e O(log
-    // n) no resto dos casos.
+
+    // Retorna o elemento da raiz da heap. O(1)
+    type root() {
+        return ptr[0];
+    }
+    // Versão constante da função root. O(1)
+    const type root() const {
+        return ptr[0];
+    }
+
+    // Insere um elemento na heap. O(n) no pior caso(capacidade cheia) e O(log n)
+    // no resto dos casos.
     void push(type value) {
         // Insere elemento no final do heap e incrementa o tamanho.
         ptr[m_size] = value;
@@ -125,20 +139,16 @@ class min_heap {
             reserve();
         }
 
-        // Chama a função up para colocar o elemento na posição correta. O(log
-        // n)
+        // Chama a função up para colocar o elemento na posição correta. O(log n)
         up(m_size - 1);
     }
 
     // Remove e retorna o elemento da raiz da heap. O(log n)
-    int pop() {
+    void pop() {
         // verifica se a heap está vazia, se estiver, lança uma exceção.
         if (m_size == 0) {
             throw std::out_of_range("Heap is empty");
         }
-
-        // Salva o elemento da raiz.
-        type aux = ptr[0];
 
         // Troca o elemento da raiz com o último elemento da heap e decrementa o
         // tamanho.
@@ -148,9 +158,6 @@ class min_heap {
         // Chama a função down para colocar o novo elemento da raiz na posição
         // correta. O(log n)
         down(0);
-
-        // Retorna o elemento que estava na raiz.
-        return aux;
     }
 
     // Função que imprime os elementos da heap. O(n)
