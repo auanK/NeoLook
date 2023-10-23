@@ -8,7 +8,7 @@ class min_heap {
    private:
     int m_size;
     int m_capacity;
-    type *ptr;ap.
+    type *ptr;
 
     void up(int index) {
         if (index == 0) {
@@ -83,7 +83,7 @@ class min_heap {
         return ptr[index]; 
     }
 
-    void push(int value) {
+    void push(type value) {
         ptr[m_size] = value;
         m_size++;
 
