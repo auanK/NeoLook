@@ -1,116 +1,135 @@
 #ifndef MIN_HEAP_H
 #define MIN_HEAP_H
-#include <stdexcept>
 #include <iostream>
-using namespace std;
-// seja h uma lista, h.size o tamanho da lista, temos que para um elemento i
-// seus filhos serao 2i + 1 e 2i + 2 e seu pai sera (i - 1)/2
+#include <stdexcept>
 
-//comparator
-bool is_bigger(int a, int b){
-   return a > b;
-}
+template <typename type>
+class min_heap {
+   private:
+    int m_size;
+    int m_capacity;
+    type *ptr;ap.
 
-class min_heap{
-    private:
-    int size;
-    int capacity;
-    int *ptr;
+    void up(int index) {
+        if (index == 0) {
+            return;
+        }
 
-// função que compara pai e filho e troca caso pai>filho
-    void up(int index){
-        if(index > 0){
-            int daddy = (index - 1)/2;
-            if(is_bigger(ptr[daddy], ptr[index])){
-                swap(&ptr[daddy], &ptr[index]);
-                up(daddy);
-            }
+        int daddy = (index - 1) / 2;
+
+        if (ptr[daddy] > ptr[index]) {
+            swap(&ptr[daddy], &ptr[index]);
+            up(daddy);
         }
     }
 
-//função que compara menor filho e pai e troca caso pai>menor filho
-    void down(int index){
+    void down(int index) {
         int index_smaller = (index * 2) + 1;
 
-        if(index_smaller < this->size){
-            if((index_smaller + 1) < this->size){
-                if(is_bigger(ptr[index_smaller], ptr[index_smaller + 1])){
-                    index_smaller += 1;
-                }
-            }
-            if(is_bigger(ptr[index], ptr[index_smaller])){
-                swap(&ptr[index], &ptr[index_smaller]);
-                down(index_smaller);
+        if (index_smaller >= this->m_size) {
+            return;
+        }
+
+        if ((index_smaller + 1) < this->m_size) {
+            if (ptr[index_smaller] > ptr[index_smaller + 1]) {
+                index_smaller += 1;
             }
         }
+
+        if (ptr[index] > ptr[index_smaller]) {
+            swap(&ptr[index], &ptr[index_smaller]);
+            down(index_smaller);
+        }
     }
-//inicialização
-    public:
-    min_heap(){
-        this->size = 0;
-        this->capacity = 1;
-        this->ptr = new int;
-    }
-    //encapsulamento
-    int get_size(){
-        return this->size;
-    }
-    int get_capacity(){
-        return this->capacity;
-    }
-    //destrutor
-    ~min_heap(){
+
+    void reserve() {
+        int *aux = new int[m_capacity * 2];
+        for (int i = 0; i < m_size; i++) {
+            aux[i] = ptr[i];
+        }
+
         delete[] ptr;
+        ptr = aux;
+
+        m_capacity *= 2;
     }
-    //função de troca
-    void swap(int *a, int *b){
-        int aux = *a;
+
+    void swap(type *a, type *b) {
+        type aux = *a;
         *a = *b;
         *b = aux;
     }
-    //função que adiciona elemento e chama a função up para ordenar o heap
-    void push(int value){
-        this->print();
-        ptr[size] = value;
-        size++;
 
-        if(size == capacity){
-            int *aux = new int[capacity*2];
-            for(int i = 0; i < size; i++){
-                aux[i] = ptr[i];
-            }
-            delete[] ptr;
-            ptr = aux;
-            capacity = capacity*2;
-        }
-
-        up(size-1);
+   public:
+    min_heap() {
+        this->m_size = 0;
+        this->m_capacity = 1;
+        this->ptr = new type[m_capacity];
     }
-    //função que remove elemento e chama a função down para ordenar o heap
-    int pop(){
-        if(size == 0){
-            throw 0;
+
+    ~min_heap() { 
+        delete[] ptr; 
+    }
+
+    int size() { 
+        return this->m_size; 
+    }
+
+    int capacity() { 
+        return this->m_capacity; 
+    }
+
+    type value(int index) { 
+        return ptr[index]; 
+    }
+
+    void push(int value) {
+        ptr[m_size] = value;
+        m_size++;
+
+        if (m_size == m_capacity) {
+            reserve();
         }
-        this->print();
 
-        int aux = ptr[0];
+        up(m_size - 1);
+    }
 
-        swap(&ptr[0], &ptr[size-1]);
-        size--;
+    int pop() {
+        if (m_size == 0) {
+            throw std::out_of_range("Heap is empty");
+        }
+
+        type aux = ptr[0];
+
+        swap(&ptr[0], &ptr[m_size - 1]);
+        m_size--;
+
         down(0);
 
         return aux;
     }
-    //função p/ imprimir
-    void print(){
-        for(int i = 0; i < size; i++){
-            cout << ptr[i] << " ";
+
+    void print() {
+        for (int i = 0; i < m_size; i++) {
+            std::cout << ptr[i] << " ";
         }
-        cout << endl;
+        std::cout << std::endl;
+    }
+
+    void printTree(int index, int level = 0) {
+        if (index >= this->m_size) {
+            return;
+        }
+
+        printTree((index * 2) + 2, level + 1);
+
+        for (int i = 0; i < level; i++) {
+            std::cout << "\t";
+        }
+
+        std::cout << ptr[index] << std::endl;
+       
+        printTree((index * 2) + 1, level + 1);
     }
 };
-
-
-
-
 #endif
