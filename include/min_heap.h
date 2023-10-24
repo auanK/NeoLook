@@ -104,31 +104,41 @@ class min_heap {
     }
 
     // Retorna a capacidade da heap. O(1)
-    int capacity() { 
-        return this->m_capacity; 
+    int capacity() {
+         return this->m_capacity; 
     }
 
     // Retorna o elemento da heap na posição index. O(1)
     type value(int index) {
-         return ptr[index]; 
+        if (index >= m_size) {
+            throw std::out_of_range("Index out of range");
+        }
+        return ptr[index];
     }
     // Versão constante da função value. O(1)
     const type value(int index) const {
-         return ptr[index]; 
+        if (index >= m_size) {
+            throw std::out_of_range("Index out of range");
+            return ptr[index];
+        }
     }
-
-
     // Retorna o elemento da raiz da heap. O(1)
     type root() {
+        if (m_size == 0) {
+            throw std::out_of_range("Heap is empty");
+        }
         return ptr[0];
     }
     // Versão constante da função root. O(1)
     const type root() const {
+        if (m_size == 0) {
+            throw std::out_of_range("Heap is empty");
+        }
         return ptr[0];
     }
 
-    // Insere um elemento na heap. O(n) no pior caso(capacidade cheia) e O(log n)
-    // no resto dos casos.
+    // Insere um elemento na heap. O(n) no pior caso(capacidade cheia) e
+    // O(log n) no resto dos casos.
     void push(type value) {
         // Insere elemento no final do heap e incrementa o tamanho.
         ptr[m_size] = value;
@@ -139,7 +149,8 @@ class min_heap {
             reserve();
         }
 
-        // Chama a função up para colocar o elemento na posição correta. O(log n)
+        // Chama a função up para colocar o elemento na posição correta.
+        // O(log n)
         up(m_size - 1);
     }
 
@@ -150,13 +161,13 @@ class min_heap {
             throw std::out_of_range("Heap is empty");
         }
 
-        // Troca o elemento da raiz com o último elemento da heap e decrementa o
-        // tamanho.
+        // Troca o elemento da raiz com o último elemento da heap e
+        // decrementa o tamanho.
         swap(&ptr[0], &ptr[m_size - 1]);
         m_size--;
 
-        // Chama a função down para colocar o novo elemento da raiz na posição
-        // correta. O(log n)
+        // Chama a função down para colocar o novo elemento da raiz na
+        // posição correta. O(log n)
         down(0);
     }
 
