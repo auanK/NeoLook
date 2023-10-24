@@ -143,7 +143,7 @@ class min_heap {
         up(m_size - 1);
     }
 
-    // Remove e retorna o elemento da raiz da heap. O(log n)
+    // Remove o elemento da raiz da heap. O(log n)
     void pop() {
         // verifica se a heap está vazia, se estiver, lança uma exceção.
         if (m_size == 0) {
