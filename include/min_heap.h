@@ -21,11 +21,6 @@ class min_heap {
         // Calcula o índice do pai.
         int daddy = (index - 1) / 2;
 
-        // Para a função se o pai for menor ou igual que o elemento.
-        if (ptr[index] >= ptr[daddy]) {
-            return;
-        }
-
         // Verifica se o pai é maior que seu filho.
         // Se for, troca o pai com o filho e chama a função up para o pai, pois
         // o pai pode ser maior que o seu pai.
