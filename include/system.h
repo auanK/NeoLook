@@ -1,7 +1,7 @@
 #ifndef SYSTEM_H
 #define SYSTEM_H
-#include "min_heap.h"
-#include "queue.h"
+#include "../include/min_heap.h"
+#include "../include/queue.h"
 
 typedef enum priority_policy priority_policy;
 enum priority_policy{

@@ -67,25 +67,37 @@ class queue {
     // Insere um elemento no final da fila. O(1)
     void push(const type &elem) {
         if (m_first == nullptr) {
+            // Se a fila estiver vazia, criamos um novo nó e fazemos o ponteiro
+            // para o primeiro e último nó apontar para ele.
             m_last = m_first = new node<type>(elem, nullptr);
         } else {
+            // Se a fila não estiver vazia, criamos um novo nó e fazemos o
+            // ponteiro para o último nó apontar para ele.
             m_last->get_next() = new node<type>(elem, nullptr);
             m_last = m_last->get_next();
         }
+        // Atualizamos o tamanho da fila.
         m_size++;
     }
 
     // Remove o elemento do início da fila. O(1)
     void pop() {
         if (m_size == 0) {
-            return;
+            throw std::runtime_error("fila vazia");
         }
 
+        // Criamos um nó auxiliar para não perder o ponteiro para o primeiro nó,
+        // e fazemos o ponteiro para o primeiro nó apontar para o segundo nó.
         node<type> *aux = m_first;
         m_first = m_first->get_next();
+
+        // Fazemos o ponteiro para o próximo nó do nó auxiliar apontar para
+        // nullptr e desalocamos a memória do nó auxiliar.
         aux->get_next() = nullptr;
         delete aux;
 
+        // Atualizamos o tamanho da fila, e se a fila ficou vazia, atualizamos
+        // o ponteiro para o último nó.
         m_size--;
         if (m_size == 0) {
             m_last = nullptr;
