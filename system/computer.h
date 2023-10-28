@@ -1,4 +1,5 @@
-#pragma once
+#ifndef COMPUTER_H
+#define COMPUTER_H
 
 #include "../include/min_heap.h"
 #include "../include/queue.h"
@@ -54,3 +55,5 @@ class computer {
         disk_2->print();
     }
 };
+
+#endif
