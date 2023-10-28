@@ -7,11 +7,12 @@
 template <typename Type>
 class computer{
     public:
+    int id;
     Type cpu;
     Type disk_1;
     Type disk_2;
 
-    computer(priority_policy policy){
+    computer(priority_policy policy, id id){
         if(policy == "FCFS"){
             cpu = new queue<Type>();
             disk_1 = new queue<Type>();
