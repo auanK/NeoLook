@@ -108,6 +108,11 @@ class min_heap {
          return this->m_capacity; 
     }
 
+    // Retorna se a heap está vazia. O(1)
+    bool empty() { 
+        return this->m_size == 0; 
+    }
+
     // Retorna o elemento da heap na posição index. O(1)
     type value(int index) {
         if (index >= m_size) {
