@@ -134,6 +134,16 @@ class queue {
         }
         return m_last->get_value();
     }
+
+    // Imprime os elementos da fila. O(n)
+    void print() {
+        node<type> *aux = m_first;
+        while (aux != nullptr) {
+            std::cout << aux->get_value() << " ";
+            aux = aux->get_next();
+        }
+        std::cout << std::endl;
+    }
 };
 
 #endif
