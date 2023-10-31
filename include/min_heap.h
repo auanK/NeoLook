@@ -33,8 +33,7 @@ class min_heap {
         // Se for, troca o pai com o filho e chama a função up para o pai, pois
         // o pai pode ser maior que o seu pai.
 
-        // comparator(ptr[daddy], ptr[index]) == 1
-        if (ptr[daddy] > ptr[index]) {
+        if (comparator(ptr[daddy], ptr[index]) == 1) {
             swap(&ptr[daddy], &ptr[index]);
             up(daddy);
         }
@@ -57,8 +56,7 @@ class min_heap {
         // e atualiza o índice do menor filho.
         if ((index_smaller + 1) < this->m_size) {
 
-            // comparator(ptr[index_smaller], ptr[index_smaller + 1]) == 1
-            if (ptr[index_smaller] > ptr[index_smaller + 1]) {
+            if (comparator(ptr[index_smaller], ptr[index_smaller + 1]) == 1) {
                 index_smaller += 1;
             }
         }
@@ -68,8 +66,7 @@ class min_heap {
         // para o menor filho, pois o menor filho pode ser maior que os seus
         // filhos.
 
-        // comparator(ptr[index], ptr[index_smaller]) == 1
-        if (ptr[index] > ptr[index_smaller]) {
+        if (comparator(ptr[index], ptr[index_smaller]) == 1) {
             swap(&ptr[index], &ptr[index_smaller]);
             down(index_smaller);
         }
