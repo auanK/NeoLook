@@ -4,6 +4,7 @@
 
 using namespace std;
 
+// Função de comparação de inteiros. O(1).
 int comparator_int(int num1, int num2){
     if(num1 < num2){
         return -1;

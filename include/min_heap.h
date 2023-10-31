@@ -91,17 +91,12 @@ class min_heap {
 
    public:
 
+    // Construtor da heap, inicializa o ponteiro para função comparator de um determinado tipo,
+    // o vetor de tipos, o tamanho e a capacidade da heap. O(1).
    min_heap(int (*comparator)(type, type), int capacity){
         this->comparator = comparator;
         this->m_size = 0;
         this->m_capacity = capacity;
-        this->ptr = new type[m_capacity];
-    }
-    
-    // Construtor padrão. Cria uma heap vazia com capacidade inicial de 1. O(1)
-    min_heap() {
-        this->m_size = 0;
-        this->m_capacity = 1;
         this->ptr = new type[m_capacity];
     }
 
