@@ -28,9 +28,13 @@ class computer {
         delete disk_2;
     }
 
-    void add_process(process process) {
+    void add_process_cpu(process process) {
+        // process.demand_cpu eh um inteiro
+        // precisamos adicionar um processo ao computador
         cpu->push(process.demand_cpu);
 
+        // criar um metodo add_process_disk para adicionar o processo da vez
+        // para acesso a um dos discos
         srand(time(NULL));
         
             if (rand() % 2 == 0) {
