@@ -4,6 +4,18 @@
 
 using namespace std;
 
+int comparator_int(int num1, int num2){
+    if(num1 < num2){
+        return -1;
+    }
+    else if(num1 > num2){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
 // Main para testar a implementação da min_heap.
 int main() {
     // Criamos um vetor de inteiros e inicializamos com alguns valores em
@@ -11,7 +23,7 @@ int main() {
     int v[] = {5, 3, 7, 1, 2, 9, 4, 8, 6, 0};
 
     // Criamos uma min_heap de inteiros.
-    min_heap<int> heap;
+    min_heap<int> heap(&comparator_int, 1);
 
     // Percorremos o vetor inserindo os valores na min_heap e imprimimos
     // o estado da heap a cada inserção.

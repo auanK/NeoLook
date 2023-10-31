@@ -11,13 +11,6 @@ class min_heap {
     int m_capacity;  // Capacidade da heap.
     type *ptr;       // Ponteiro para o vetor que armazena os elementos da heap.
 
-
-    min_heap(int (*comparator)(type, type), int capacity){
-        this->comparator = comparator;
-        this->m_size = 0;
-        this->m_capacity = capacity;
-        this->ptr = new type[m_capacity];
-    }
     // Move um elemento para cima na heap, garantindo que o pai seja menor que
     // os filhos. O(log n)
     void up(int index) {
@@ -97,6 +90,14 @@ class min_heap {
     }
 
    public:
+
+   min_heap(int (*comparator)(type, type), int capacity){
+        this->comparator = comparator;
+        this->m_size = 0;
+        this->m_capacity = capacity;
+        this->ptr = new type[m_capacity];
+    }
+    
     // Construtor padrão. Cria uma heap vazia com capacidade inicial de 1. O(1)
     min_heap() {
         this->m_size = 0;
