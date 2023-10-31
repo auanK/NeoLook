@@ -6,10 +6,18 @@
 template <typename type>
 class min_heap {
    private:
+    int (*comparator)(type, type);  // Ponteiro para a função de comparação.
     int m_size;      // Quantidade de elementos da heap.
     int m_capacity;  // Capacidade da heap.
     type *ptr;       // Ponteiro para o vetor que armazena os elementos da heap.
 
+
+    min_heap(int (*comparator)(type, type), int capacity){
+        this->comparator = comparator;
+        this->m_size = 0;
+        this->m_capacity = capacity;
+        this->ptr = new type[m_capacity];
+    }
     // Move um elemento para cima na heap, garantindo que o pai seja menor que
     // os filhos. O(log n)
     void up(int index) {
@@ -24,6 +32,8 @@ class min_heap {
         // Verifica se o pai é maior que seu filho.
         // Se for, troca o pai com o filho e chama a função up para o pai, pois
         // o pai pode ser maior que o seu pai.
+
+        // comparator(ptr[daddy], ptr[index]) == 1
         if (ptr[daddy] > ptr[index]) {
             swap(&ptr[daddy], &ptr[index]);
             up(daddy);
@@ -46,6 +56,8 @@ class min_heap {
         // Se existir, verifica se o filho direito é menor que o filho esquerdo
         // e atualiza o índice do menor filho.
         if ((index_smaller + 1) < this->m_size) {
+
+            // comparator(ptr[index_smaller], ptr[index_smaller + 1]) == 1
             if (ptr[index_smaller] > ptr[index_smaller + 1]) {
                 index_smaller += 1;
             }
@@ -55,6 +67,8 @@ class min_heap {
         // Se for, troca o elemento i com o menor filho e chama a função down
         // para o menor filho, pois o menor filho pode ser maior que os seus
         // filhos.
+
+        // comparator(ptr[index], ptr[index_smaller]) == 1
         if (ptr[index] > ptr[index_smaller]) {
             swap(&ptr[index], &ptr[index_smaller]);
             down(index_smaller);

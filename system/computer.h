@@ -31,18 +31,13 @@ class computer {
     void add_process(process process) {
         cpu->push(process.demand_cpu);
 
-        if (disk_1->empty() && disk_2->empty() || !disk_1->empty() &&
-            !disk_2->empty()) {
+        srand(time(NULL));
+        
             if (rand() % 2 == 0) {
                 disk_1->push(process.demand_disk);
             } else {
                 disk_2->push(process.demand_disk);
-            }
-        } else if (disk_1->empty()) {
-            disk_1->push(process.demand_disk);
-        } else {
-            disk_2->push(process.demand_disk);
-        }
+            } 
     }
 
     
