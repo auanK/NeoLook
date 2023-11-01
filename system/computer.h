@@ -29,21 +29,27 @@ class computer {
     }
 
     void add_process_cpu(process process) {
-        // process.demand_cpu eh um inteiro
-        // precisamos adicionar um processo ao computador
-        cpu->push(process.demand_cpu);
 
-        // criar um metodo add_process_disk para adicionar o processo da vez
-        // para acesso a um dos discos
-        srand(time(NULL));
-        
-            if (rand() % 2 == 0) {
-                disk_1->push(process.demand_disk);
-            } else {
-                disk_2->push(process.demand_disk);
-            } 
+        cpu->push(process);
+
     }
 
+    void add_process_disk() {
+
+        Type p = cpu->pop();
+
+        srand(time(NULL));
+        
+        int random = rand() % 2;
+
+        if(random == 0) {
+            disk_1->push(p);
+        } else {
+            disk_2->push(p);
+        }
+    }
+
+    
     
     void print() {
         cout << "CPU: ";

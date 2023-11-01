@@ -24,7 +24,8 @@ int main() {
     int v[] = {5, 3, 7, 1, 2, 9, 4, 8, 6, 0};
 
     // Criamos uma min_heap de inteiros.
-    min_heap<int> heap(&comparator_int, 1);
+    min_heap<int> heap;
+    heap.set_comparator(&comparator_int);
 
     // Percorremos o vetor inserindo os valores na min_heap e imprimimos
     // o estado da heap a cada inserção.

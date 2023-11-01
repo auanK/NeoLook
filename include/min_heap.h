@@ -9,7 +9,7 @@ class min_heap {
     int (*comparator)(type, type);  // Ponteiro para a função de comparação.
     int m_size;      // Quantidade de elementos da heap.
     int m_capacity;  // Capacidade da heap.
-    type *ptr;       // Ponteiro para o vetor que armazena os elementos da heap.
+    type *ptr;       // Vetor de ponteiros para os elementos da heap.
 
     // Move um elemento para cima na heap, garantindo que o pai seja menor que
     // os filhos. O(log n)
@@ -27,7 +27,7 @@ class min_heap {
         // o pai pode ser maior que o seu pai.
 
         if (comparator(ptr[daddy], ptr[index]) == 1) {
-            swap(&ptr[daddy], &ptr[index]);
+            swap(ptr[daddy], ptr[index]);
             up(daddy);
         }
     }
@@ -60,7 +60,7 @@ class min_heap {
         // filhos.
 
         if (comparator(ptr[index], ptr[index_smaller]) == 1) {
-            swap(&ptr[index], &ptr[index_smaller]);
+            swap(ptr[index], ptr[index_smaller]);
             down(index_smaller);
         }
     }
@@ -69,7 +69,7 @@ class min_heap {
     void reserve() {
         // Cria um novo vetor com o dobro da capacidade e copia os elementos do
         // vetor antigo para o novo vetor.
-        int *aux = new int[m_capacity * 2];
+        int *aux = new type[m_capacity * 2];
         for (int i = 0; i < m_size; i++) {
             aux[i] = ptr[i];
         }
@@ -83,10 +83,10 @@ class min_heap {
     }
 
     // Função que troca dois elementos de posição. O(1)
-    void swap(type *a, type *b) {
-        type aux = *a;
-        *a = *b;
-        *b = aux;
+    void swap(type& a, type& b) {
+        type aux = a;
+        a = b;
+        b = aux;
     }
 
    public:
@@ -124,6 +124,7 @@ class min_heap {
         return this->m_size == 0; 
     }
 
+    // private:
     // Retorna o elemento da heap na posição index. O(1)
     type value(int index) {
         if (index >= m_size) {
@@ -153,6 +154,7 @@ class min_heap {
         return ptr[0];
     }
 
+    public:
     // Insere um elemento na heap. O(n) no pior caso(capacidade cheia) e
     // O(log n) no resto dos casos.
     void push(type value) {
@@ -171,7 +173,7 @@ class min_heap {
     }
 
     // Remove o elemento da raiz da heap. O(log n)
-    void pop() {
+    type pop() {
         // verifica se a heap está vazia, se estiver, lança uma exceção.
         if (m_size == 0) {
             throw std::out_of_range("Heap is empty");
@@ -179,12 +181,14 @@ class min_heap {
 
         // Troca o elemento da raiz com o último elemento da heap e
         // decrementa o tamanho.
-        swap(&ptr[0], &ptr[m_size - 1]);
+        swap(ptr[0], ptr[m_size - 1]);
         m_size--;
 
         // Chama a função down para colocar o novo elemento da raiz na
         // posição correta. O(log n)
         down(0);
+
+        return ptr[m_size];
     }
 
     // Função que imprime os elementos da heap. O(n)

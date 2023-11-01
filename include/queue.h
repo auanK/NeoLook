@@ -81,7 +81,7 @@ class queue {
     }
 
     // Remove o elemento do início da fila. O(1)
-    void pop() {
+    type pop() {
         if (m_size == 0) {
             throw std::runtime_error("fila vazia");
         }
@@ -89,6 +89,7 @@ class queue {
         // Criamos um nó auxiliar para não perder o ponteiro para o primeiro nó,
         // e fazemos o ponteiro para o primeiro nó apontar para o segundo nó.
         node<type> *aux = m_first;
+        type key = aux->get_value();
         m_first = m_first->get_next();
 
         // Fazemos o ponteiro para o próximo nó do nó auxiliar apontar para
@@ -102,6 +103,8 @@ class queue {
         if (m_size == 0) {
             m_last = nullptr;
         }
+
+        return key;
     }
 
     // Retorna o elemento do início da fila. O(1)

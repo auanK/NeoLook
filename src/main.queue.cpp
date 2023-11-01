@@ -29,9 +29,7 @@ int main() {
     // fila a cada remoção.
     cout << "Removendo elementos da fila:" << endl;
     while (fila.size() > 0) {
-        cout << "Primeiro: " << fila.front() << endl;
-        cout << "Último: " << fila.back() << endl;
+        cout << "Primeiro: " << fila.pop() << endl;
         cout << "-----------------------" << endl;
-        fila.pop();
     }
 }
