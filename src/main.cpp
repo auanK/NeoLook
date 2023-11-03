@@ -62,12 +62,12 @@ int main(int argc, char* argv[]) {
         resource<queue<process*> > resource(2, policy_enum);
     }
 
-
     int time = 0;
     while (true) {
         if (process_vector.size() == 0) {
             break;
         }
+
         process_vector.erase(process_vector.begin());
         time++;
     }
