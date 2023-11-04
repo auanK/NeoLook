@@ -83,7 +83,8 @@ class queue {
     // Remove o elemento do início da fila. O(1)
     type pop() {
         if (m_size == 0) {
-            throw std::runtime_error("fila vazia");
+           // throw std::runtime_error("fila vazia");
+           return nullptr;
         }
 
         // Criamos um nó auxiliar para não perder o ponteiro para o primeiro nó,
@@ -110,14 +111,15 @@ class queue {
     // Retorna o elemento do início da fila. O(1)
     type &front() {
         if (m_size == 0) {
-            throw std::runtime_error("fila vazia");
+            //throw std::runtime_error("fila vazia");
         }
         return m_first->get_value();
     }
     // Versão constante da função front. O(1)
     const type &front() const {
         if (m_size == 0) {
-            throw std::runtime_error("fila vazia");
+            return nullptr;
+            //throw std::runtime_error("fila vazia");
         }
         return m_first->get_value();
     }

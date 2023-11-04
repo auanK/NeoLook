@@ -14,12 +14,14 @@ class process {
         this->demand_disk = demand_disk;
         this->demand_network = demand_network;
     }
-    void print(process* p) {
-        printf("Instant: %d\n", p->instant);
-        printf("Demand CPU: %d\n", p->demand_cpu);
-        printf("Demand Disk: %d\n", p->demand_disk);
-        printf("Demand Network: %d\n", p->demand_network);
+    void print() {
+        printf("Instant: %d\n", this->instant);
+        printf("Demand CPU: %d\n", this->demand_cpu);
+        printf("Demand Disk: %d\n", this->demand_disk);
+        printf("Demand Network: %d\n", this->demand_network);
     }
+
+    ~process() {}
 };
 
 int compare_process_cpu(process* a, process* b) {

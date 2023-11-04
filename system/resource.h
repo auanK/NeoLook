@@ -9,9 +9,10 @@
 
 template <typename type>
 class resource {
-   private:
+   public:
     computer<type> *computer_type;
     type *network;
+    process* running_network;
     int amount;
     priority_policy policy;
 
@@ -21,6 +22,7 @@ class resource {
         this->policy = policy;
         this->computer_type = new computer<type>[amount];
         this->network = new type();
+        this->running_network = nullptr;
 
         if (policy == SJF) {
             for (int i = 0; i < amount; i++) {
@@ -42,11 +44,6 @@ class resource {
     void add_process(process *process) {
         int random_index = rand() % amount;
         computer_type[random_index].add_process_cpu(process);
-        std::cout << process << " adicionado na CPU " << random_index
-                  << std::endl
-                  << std::endl;
-        computer_type[random_index].print();
-        std::cout << std::endl;
     }
 
     ~resource() {

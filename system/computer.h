@@ -36,14 +36,17 @@ class computer {
 
     void add_process_cpu(process* process) {
         cpu->push(process);
-        if (running_cpu == nullptr) {
-            running_cpu = cpu->pop();
+    }
+
+    void consume_cpu() {
+        if (running_cpu != nullptr) {
+                if(running_cpu != 0) running_cpu->demand_cpu--;
         }
     }
 
     void add_process_disk() {
-        Type p = cpu->pop();
-
+        process *p = running_cpu;
+        running_cpu = nullptr;
         int random = rand() % 2;
 
         if (random == 0) {
@@ -51,6 +54,13 @@ class computer {
         } else {
             disk_2->push(p);
         }
+    }
+
+    void consume_disk() {
+        if(running_disk_1 != nullptr && running_disk_1->demand_disk != 0)
+            running_disk_1->demand_disk--;
+        if(running_disk_2 != nullptr && running_disk_2->demand_disk != 0)
+            running_disk_2->demand_disk--;
     }
 
     void print() {

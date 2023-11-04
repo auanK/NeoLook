@@ -10,6 +10,7 @@
 #include "../system/enumerator.h"
 #include "../system/process.h"
 #include "../system/resource.h"
+#include "../system/escalonator.h"
 
 using namespace std;
 
@@ -56,25 +57,15 @@ int main(int argc, char* argv[]) {
 
     queue<process*> process_queue = readFileAndGetProcesses(policy, filename);
 
-    if (policy == "FCFS") {
-        cout << "Executando política FCFS..." << endl;
-        resource<queue<process*> > resources(4, FCFS);
-        priority_policy policy_enum = FCFS;
-    } else {
-        cout << "Executando política SJF..." << endl;
-        resource<min_heap<process*> > resources(4, SJF);
-        priority_policy policy_enum = SJF;
-
-        int time = 0;
-        while (true) {
-            if (process_queue.size() == 0) {
-                break;
-            }
-
-            resources.add_process(process_queue.pop());
-            time++;
-        }
+    if(policy.compare("FCFS")){
+        escalonator<queue<process*>> e(4, FCFS, &process_queue);
+        e.run();
+    }else{
+        escalonator<min_heap<process*>> e(4, SJF, &process_queue);
+        e.run();
     }
+
+
 
     return 0;
 }

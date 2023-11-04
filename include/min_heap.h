@@ -176,7 +176,8 @@ class min_heap {
     type pop() {
         // verifica se a heap está vazia, se estiver, lança uma exceção.
         if (m_size == 0) {
-            throw std::out_of_range("Heap is empty");
+            //throw std::out_of_range("Heap is empty");
+            return nullptr;
         }
 
         // Troca o elemento da raiz com o último elemento da heap e
