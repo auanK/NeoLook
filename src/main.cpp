@@ -13,7 +13,7 @@
 
 using namespace std;
 
-vector<process*> readFileAndGetProcesses(const string& policy,
+queue<process*> readFileAndGetProcesses(const string& policy,
                                          const string& filename) {
     if (policy != "SJF" && policy != "FCFS") {
         cerr << "Política de escalonamento inválida. Use 'SJF' ou 'FCFS'."
@@ -21,7 +21,7 @@ vector<process*> readFileAndGetProcesses(const string& policy,
         exit(1);
     }
 
-    vector<process*> process_vector;
+    queue<process*> process_queue;
     FILE* file = fopen(filename.c_str(), "r");
 
     if (!file) {
@@ -34,12 +34,12 @@ vector<process*> readFileAndGetProcesses(const string& policy,
                   &demand_network) != EOF) {
         process* new_process =
             new process(instant, demand_cpu, demand_disk, demand_network);
-        process_vector.push_back(new_process);
+        process_queue.push(new_process);
     }
 
     fclose(file);
 
-    return process_vector;
+    return process_queue;
 }
 
 int main(int argc, char* argv[]) {
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
     string policy = argv[1];
     string filename = argv[2];
 
-    vector<process*> process_vector = readFileAndGetProcesses(policy, filename);
+    queue<process*> process_queue = readFileAndGetProcesses(policy, filename);
 
     if (policy == "FCFS") {
         cout << "Executando política FCFS..." << endl;
@@ -64,17 +64,14 @@ int main(int argc, char* argv[]) {
         cout << "Executando política SJF..." << endl;
         resource<min_heap<process*> > resources(4, SJF);
         priority_policy policy_enum = SJF;
+
         int time = 0;
-
-
         while (true) {
-            if (process_vector.size() == 0) {
+            if (process_queue.size() == 0) {
                 break;
             }
 
-            resources.add_process(process_vector[0]);
-
-            process_vector.erase(process_vector.begin());
+            resources.add_process(process_queue.pop());
             time++;
         }
     }
