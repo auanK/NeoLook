@@ -40,9 +40,13 @@ class resource {
     }
 
     void add_process(process *process) {
-        srand(time(NULL));
         int random_index = rand() % amount;
         computer_type[random_index].add_process_cpu(process);
+        std::cout << process << " adicionado na CPU " << random_index
+                  << std::endl
+                  << std::endl;
+        computer_type[random_index].print();
+        std::cout << std::endl;
     }
 
     ~resource() {

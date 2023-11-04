@@ -69,7 +69,7 @@ class min_heap {
     void reserve() {
         // Cria um novo vetor com o dobro da capacidade e copia os elementos do
         // vetor antigo para o novo vetor.
-        int *aux = new type[m_capacity * 2];
+        type *aux = new type[m_capacity * 2];
         for (int i = 0; i < m_size; i++) {
             aux[i] = ptr[i];
         }

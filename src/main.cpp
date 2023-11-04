@@ -1,3 +1,5 @@
+#include <time.h>
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -5,9 +7,9 @@
 #include "../include/min_heap.h"
 #include "../include/queue.h"
 #include "../system/computer.h"
+#include "../system/enumerator.h"
 #include "../system/process.h"
 #include "../system/resource.h"
-#include "../system/enumerator.h"
 
 using namespace std;
 
@@ -47,29 +49,34 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    srand(time(NULL));
+
     string policy = argv[1];
     string filename = argv[2];
 
     vector<process*> process_vector = readFileAndGetProcesses(policy, filename);
 
-    if (policy == "SJF") {
-        priority_policy policy_enum = SJF;
-        cout << "Executando política SJF..." << endl;
-        resource<min_heap<process*> > resource(2, policy_enum);
-    } else if (policy == "FCFS") {
-        priority_policy policy_enum = FCFS;
+    if (policy == "FCFS") {
         cout << "Executando política FCFS..." << endl;
-        resource<queue<process*> > resource(2, policy_enum);
-    }
+        resource<queue<process*> > resources(4, FCFS);
+        priority_policy policy_enum = FCFS;
+    } else {
+        cout << "Executando política SJF..." << endl;
+        resource<min_heap<process*> > resources(4, SJF);
+        priority_policy policy_enum = SJF;
+        int time = 0;
 
-    int time = 0;
-    while (true) {
-        if (process_vector.size() == 0) {
-            break;
+
+        while (true) {
+            if (process_vector.size() == 0) {
+                break;
+            }
+
+            resources.add_process(process_vector[0]);
+
+            process_vector.erase(process_vector.begin());
+            time++;
         }
-
-        process_vector.erase(process_vector.begin());
-        time++;
     }
 
     return 0;

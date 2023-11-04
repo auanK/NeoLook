@@ -28,17 +28,13 @@ class computer {
         delete disk_2;
     }
 
-    void add_process_cpu(process process) {
-
+    void add_process_cpu(process* process) {
         cpu->push(process);
-
     }
 
     void add_process_disk() {
 
         Type p = cpu->pop();
-
-        srand(time(NULL));
         
         int random = rand() % 2;
 
