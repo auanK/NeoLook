@@ -1,12 +1,12 @@
 #ifndef COMPUTER_H
 #define COMPUTER_H
 
+#include <iostream>
+
 #include "../include/min_heap.h"
 #include "../include/queue.h"
 #include "enumerator.h"
 #include "process.h"
-
-#include <iostream>
 
 using namespace std;
 template <typename Type>
@@ -15,11 +15,17 @@ class computer {
     Type* cpu;
     Type* disk_1;
     Type* disk_2;
+    process* running_cpu;
+    process* running_disk_1;
+    process* running_disk_2;
 
     computer() {
         cpu = new Type();
         disk_1 = new Type();
         disk_2 = new Type();
+        running_cpu = nullptr;
+        running_disk_1 = nullptr;
+        running_disk_2 = nullptr;
     }
 
     ~computer() {
@@ -30,23 +36,23 @@ class computer {
 
     void add_process_cpu(process* process) {
         cpu->push(process);
+        if (running_cpu == nullptr) {
+            running_cpu = cpu->pop();
+        }
     }
 
     void add_process_disk() {
-
         Type p = cpu->pop();
-        
+
         int random = rand() % 2;
 
-        if(random == 0) {
+        if (random == 0) {
             disk_1->push(p);
         } else {
             disk_2->push(p);
         }
     }
 
-    
-    
     void print() {
         cout << "CPU: ";
         cpu->print();
