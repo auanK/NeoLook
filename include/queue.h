@@ -83,8 +83,8 @@ class queue {
     // Remove o elemento do início da fila. O(1)
     type pop() {
         if (m_size == 0) {
-           // throw std::runtime_error("fila vazia");
-           return nullptr;
+            // Se a fila estiver vazia, retornamos nullptr.
+            return nullptr;
         }
 
         // Criamos um nó auxiliar para não perder o ponteiro para o primeiro nó,
@@ -105,39 +105,26 @@ class queue {
             m_last = nullptr;
         }
 
+        // Retornamos o valor do nó removido.
         return key;
     }
 
     // Retorna o elemento do início da fila. O(1)
     type &front() {
         if (m_size == 0) {
-            //throw std::runtime_error("fila vazia");
-        }
-        return m_first->get_value();
-    }
-    // Versão constante da função front. O(1)
-    const type &front() const {
-        if (m_size == 0) {
+            // Se a fila estiver vazia, retornamos nullptr.
             return nullptr;
-            //throw std::runtime_error("fila vazia");
         }
         return m_first->get_value();
     }
 
-    // Retorna o elemento do final da fila. O(1)
-    type &back() {
+    // Versão constante da função front. O(1)
+    const type &front() const {
         if (m_size == 0) {
-            throw std::runtime_error("fila vazia");
+            // Se a fila estiver vazia, retornamos nullptr.
+            return nullptr;
         }
-        return m_last->get_value();
-    }
-    // Versão constante da função back. O(1)
-    const type &back() const {
-        // Lança uma exceção se a fila estiver vazia.
-        if (m_size == 0) {
-            throw std::runtime_error("fila vazia");
-        }
-        return m_last->get_value();
+        return m_first->get_value();
     }
 
     // Imprime os elementos da fila. O(n)
