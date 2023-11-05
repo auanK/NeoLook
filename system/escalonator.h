@@ -331,7 +331,7 @@ class escalonator {
         double average_wait = 0;
 
         // Taxa de processamento = numero de processos / termino do ultimo processo - inicio do primeiro processo
-        double processing_rate = static_cast<double> (qtd_process) / (log[qtd_process - 1][7]->instant - log[0][0]->instant);
+        double processing_rate = static_cast<double> (qtd_process) / ((time - 1) - log[0][0]->instant);
 
         // Percorrendo cada processo.
         for (int i = 0; i < qtd_process; i++) {
