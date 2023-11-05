@@ -8,14 +8,14 @@
 #include "../include/queue.h"
 #include "../system/computer.h"
 #include "../system/enumerator.h"
+#include "../system/escalonator.h"
 #include "../system/process.h"
 #include "../system/resource.h"
-#include "../system/escalonator.h"
 
 using namespace std;
 
 queue<process*> readFileAndGetProcesses(const string& policy,
-                                         const string& filename) {
+                                        const string& filename) {
     if (policy != "SJF" && policy != "FCFS") {
         cerr << "Política de escalonamento inválida. Use 'SJF' ou 'FCFS'."
              << endl;
@@ -46,26 +46,28 @@ queue<process*> readFileAndGetProcesses(const string& policy,
 }
 
 int main(int argc, char* argv[]) {
-    if (argc != 3) {
+    if (argc != 4) {
         cerr << "Uso: " << argv[0]
-             << " <política (SJF ou FCFS)> <arquivo de entrada>" << endl;
+             << " <política (SJF ou FCFS)> <arquivo_de_entrada> <número_de_computadores>" << endl;
         return 1;
     }
 
     srand(time(NULL));
 
-    string policy = argv[1];
-    string filename = argv[2];
+    string policy = argv[1];                   // FCFS ou SJF.
+    string filename = argv[2];                 // nome do arquivo de entrada.
+    int numComputers = atoi(argv[3]);          // número de computadores.
 
-    queue<process*> process_queue = readFileAndGetProcesses(policy, filename);
+    // lê o arquivo de entrada e cria a fila de processos.
+    queue<process*> process_queue = readFileAndGetProcesses(policy, "in/" + filename);
 
-    if(policy.compare("FCFS") == 0){
-        escalonator<queue<process*>> e(1, FCFS, &process_queue);
-        e.run();
-    }else{
-        escalonator<min_heap<process*>> e(1, SJF, &process_queue);
-        e.run();
+    if (policy.compare("FCFS") == 0) {
+        escalonator<queue<process*>> e(numComputers, FCFS, &process_queue);
+        e.run(filename);
+    } else {
+        escalonator<min_heap<process*>> e(numComputers, SJF, &process_queue);
+        e.run(filename);
     }
-    
+
     return 0;
 }

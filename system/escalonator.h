@@ -29,10 +29,8 @@ class escalonator {
     // escalonamento e a fila de processos a serem processados).
     escalonator(int amount, priority_policy p, queue<process*>* process_queue) {
         this->system = new resource<Type>(amount, p);  // Inicializando o sistema
-        this->process_queue =
-            process_queue;  // Inicializando a fila de processos
-        qtd_process =
-            process_queue->size();  // Inicializando a quantidade de processos
+        this->process_queue = process_queue;  // Inicializando a fila de processos
+        qtd_process = process_queue->size();  // Inicializando a quantidade de processos
 
         // Cada processo sera registrado em 8 eventos:
         //      -> Iniciar processo.
@@ -61,7 +59,7 @@ class escalonator {
     }
 
     // Metodo que executa o escalonamento.
-    void run() {
+    void run(string filename) {
         int time = 0;  // Instante de tempo
 
         // Loop que executa o escalonamento.
@@ -359,7 +357,10 @@ class escalonator {
 
         // Imprimindo as metricas.
         m.print();
-        //m.save();
+
+        // Salvando as metricas em um arquivo.
+        m.save(filename, system->amount, system->policy == FCFS ? "FCFS" : "SJF");
+
     }
 
     // Destrutor, desaloca os eventos, o sistema e a matriz de eventos.

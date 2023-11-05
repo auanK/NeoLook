@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 // Classe que armazena as métricas de execução do simulador.
 class metrics {
@@ -31,15 +32,19 @@ class metrics {
     }
 
     // Salvando as métricas em um arquivo.
-    void save() {
-        std::ofstream file;
-        file.open("metrics.txt");
-        file << "Tempo total: " << total_time << std::endl;
-        file << "Tempo médio de execução: " << std::fixed << std::setprecision(3) << average_time << std::endl;
-        file << "Tempo médio de espera: " << std::fixed << std::setprecision(3) << average_wait << std::endl;
-        file << "Taxa de processamento: " << std::fixed << std::setprecision(8) << processing_rate << std::endl;
-        file.close();
+    void save(string filename, int num_computers, string policy) {
+    std::ofstream file;
+    string directory = "out/" + policy + "_" + filename;
+    file.open(directory);
+    file << "Política de escalonamento: " << policy << std::endl;
+    file << "Número de computadores: " << num_computers << std::endl;
+    file << "Tempo total: " << total_time << std::endl;
+    file << "Tempo médio de execução: " << std::fixed << std::setprecision(3) << average_time << std::endl;
+    file << "Tempo médio de espera: " << std::fixed << std::setprecision(3) << average_wait << std::endl;
+    file << "Taxa de processamento: " << std::fixed << std::setprecision(8) << processing_rate << std::endl;
+    file.close();
     }
+
 };
 
 #endif
