@@ -112,22 +112,13 @@ class queue {
     // Retorna o elemento do início da fila. O(1)
     type &front() {
         if (m_size == 0) {
-            // Se a fila estiver vazia, retornamos nullptr.
-            return nullptr;
+            // Se a fila estiver vazia, lançamos uma exceção.
+            throw std::out_of_range("The queue is empty.");
         }
         return m_first->get_value();
     }
 
-    // Versão constante da função front. O(1)
-    const type &front() const {
-        if (m_size == 0) {
-            // Se a fila estiver vazia, retornamos nullptr.
-            return nullptr;
-        }
-        return m_first->get_value();
-    }
-
-    // Imprime os elementos da fila. O(n)
+    // Imprime os elementos da fila. O(n)  (Não utilizado no simulador)
     void print() {
         node<type> *aux = m_first;
         while (aux != nullptr) {
