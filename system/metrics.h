@@ -25,7 +25,7 @@ class metrics {
 
     // Printa as métricas.
     void print() {
-        std::cout << "Tempo total: " << total_time << std::endl;
+        std::cout << "Tempo total de execução: " << total_time << std::endl;
         std::cout << "Tempo médio de execução: " << std::fixed << std::setprecision(3) << average_time << std::endl;
         std::cout << "Tempo médio de espera: " << std::fixed << std::setprecision(3) << average_wait << std::endl;
         std::cout << "Taxa de processamento: " << std::fixed << std::setprecision(8) << processing_rate << std::endl;
@@ -38,7 +38,7 @@ class metrics {
     file.open(directory);
     file << "Política de escalonamento: " << policy << std::endl;
     file << "Número de computadores: " << num_computers << std::endl;
-    file << "Tempo total: " << total_time << std::endl;
+    file << "Tempo total de execução: " << total_time << std::endl;
     file << "Tempo médio de execução: " << std::fixed << std::setprecision(3) << average_time << std::endl;
     file << "Tempo médio de espera: " << std::fixed << std::setprecision(3) << average_wait << std::endl;
     file << "Taxa de processamento: " << std::fixed << std::setprecision(8) << processing_rate << std::endl;

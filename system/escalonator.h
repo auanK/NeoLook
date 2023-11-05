@@ -8,6 +8,7 @@
 #include "metrics.h"
 #include "resource.h"
 
+// Classe que representa o escalonador.
 template <typename Type>
 class escalonator {
    public:

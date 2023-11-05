@@ -10,13 +10,13 @@
 template <typename type>
 class resource {
    public:
-    computer<type> *computer_type;
-    type *network;
-    process* running_network;
-    int amount;
-    priority_policy policy;
+    computer<type> *computer_type;  // Vetor de computadores.
+    int amount;                     // Quantidade de computadores.
+    priority_policy policy;         // Política de escalonamento.
+    type *network;                  // Fila de espera da rede.
+    process *running_network;       // Processo que está sendo executado na rede.
 
-   public:
+    // Construtor, inicializa os computadores e a rede.
     resource(int amount, priority_policy policy) {
         this->amount = amount;
         this->policy = policy;
@@ -24,8 +24,11 @@ class resource {
         this->network = new type();
         this->running_network = nullptr;
 
+        // Caso a política seja SJF, seta os comparadores da min_heap nas respectivas filas.s
         if (policy == SJF) {
+            // Para cada computador, seta o comparador da CPU e dos discos.
             for (int i = 0; i < amount; i++) {
+                // Verifica se o tipo de computador é min_heap<process *> para setar o comparador em tempo de execução.
                 if constexpr (std::is_same_v<type, min_heap<process *>>) {
                     this->computer_type[i].cpu->set_comparator(
                         &compare_process_cpu);
@@ -35,6 +38,7 @@ class resource {
                         &compare_process_disk);
                 }
             }
+            // Verifica se o tipo de computador é min_heap<process *> para setar o comparador em tempo de execução.
             if constexpr (std::is_same_v<type, min_heap<process *>>) {
                 this->network->set_comparator(&compare_process_network);
             }
@@ -50,7 +54,7 @@ class resource {
     }
 
     // AVerifica se existe processo na rede.
-    bool has_process_in_network(){
+    bool has_process_in_network() {
         return !network->empty() || (running_network != nullptr);
     }
 

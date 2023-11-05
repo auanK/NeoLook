@@ -8,6 +8,7 @@
 #include "enumerator.h"
 #include "process.h"
 
+// Classe que armazena um computador.
 using namespace std;
 template <typename Type>
 class computer {
