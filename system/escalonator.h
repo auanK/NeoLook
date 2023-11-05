@@ -372,7 +372,7 @@ class escalonator {
 
         // Deletando o sistema.
         delete system;
-.
+
         for (int i = 0; i < size_events; i++) {
             delete events_vec[i];
         }

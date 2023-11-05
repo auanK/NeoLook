@@ -57,7 +57,6 @@ class min_heap {
         // Se for, troca o elemento i com o menor filho e chama a função down
         // para o menor filho, pois o menor filho pode ser maior que os seus
         // filhos.
-
         if (comparator(ptr[index], ptr[index_smaller]) == 1) {
             swap(ptr[index], ptr[index_smaller]);
             down(index_smaller);
@@ -98,55 +97,32 @@ class min_heap {
         this->ptr = new type[m_capacity];
     }
 
-    // fazer verificacao no system para chamar o comparator caso a politica seja
-    // sjf.
+
+    // Destrutor da heap, desaloca a memória do vetor. O(1)
+    ~min_heap() { 
+        delete[] ptr; 
+    }
+
+    // Função que define a função de comparação. O(1)
     void set_comparator(int (*comparator)(type, type)) {
         this->comparator = comparator;
     }
 
-    // Destrutor da heap, desaloca a memória do vetor. O(1)
-    ~min_heap() { delete[] ptr; }
-
     // Retorna a quantidade de elementos na heap. O(1)
-    int size() { return this->m_size; }
+    int size() { 
+        return this->m_size; 
+    }
 
     // Retorna a capacidade da heap. O(1)
-    int capacity() { return this->m_capacity; }
+    int capacity() { 
+        return this->m_capacity; 
+    }
 
     // Retorna se a heap está vazia. O(1)
-    bool empty() { return this->m_size == 0; }
-
-    // private:
-    // Retorna o elemento da heap na posição index. O(1)
-    type value(int index) {
-        if (index >= m_size) {
-            throw std::out_of_range("Index out of range");
-        }
-        return ptr[index];
-    }
-    // Versão constante da função value. O(1)
-    const type value(int index) const {
-        if (index >= m_size) {
-            throw std::out_of_range("Index out of range");
-            return ptr[index];
-        }
-    }
-    // Retorna o elemento da raiz da heap. O(1)
-    type root() {
-        if (m_size == 0) {
-            throw std::out_of_range("Heap is empty");
-        }
-        return ptr[0];
-    }
-    // Versão constante da função root. O(1)
-    const type root() const {
-        if (m_size == 0) {
-            throw std::out_of_range("Heap is empty");
-        }
-        return ptr[0];
+    bool empty() { 
+        return this->m_size == 0; 
     }
 
-   public:
     // Insere um elemento na heap. O(n) no pior caso(capacidade cheia) e
     // O(log n) no resto dos casos.
     void push(type value) {
@@ -166,9 +142,8 @@ class min_heap {
 
     // Remove o elemento da raiz da heap. O(log n)
     type pop() {
-        // verifica se a heap está vazia, se estiver, lança uma exceção.
+        // Verifica se a heap está vazia, e retorna nullptr se estiver.
         if (m_size == 0) {
-            // throw std::out_of_range("Heap is empty");
             return nullptr;
         }
 
@@ -184,7 +159,7 @@ class min_heap {
         return ptr[m_size];
     }
 
-    // Função que imprime os elementos da heap. O(n)
+    // Função que imprime os elementos da heap. O(n) (não é usado no simulador)
     void print() {
         for (int i = 0; i < m_size; i++) {
             std::cout << ptr[i] << " ";
@@ -192,7 +167,7 @@ class min_heap {
         std::cout << std::endl;
     }
 
-    // Função que imprime a heap em forma de árvore. O(n)
+    // Função que imprime a heap em forma de árvore. O(n) (Não é usado no simulador)
     void printTree(int index, int level = 0) {
         // Verifica se o índice é maior ou igual ao tamanho da heap, pois se
         // for, não tem filho.
