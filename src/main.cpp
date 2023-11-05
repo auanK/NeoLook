@@ -31,11 +31,13 @@ queue<process*> readFileAndGetProcesses(const string& policy,
     }
 
     int instant, demand_cpu, demand_disk, demand_network;
+    int id = 0;
     while (fscanf(file, "%d %d %d %d", &instant, &demand_cpu, &demand_disk,
                   &demand_network) != EOF) {
         process* new_process =
-            new process(instant, demand_cpu, demand_disk, demand_network);
+            new process(id, instant, demand_cpu, demand_disk, demand_network);
         process_queue.push(new_process);
+        id++;
     }
 
     fclose(file);
@@ -57,15 +59,13 @@ int main(int argc, char* argv[]) {
 
     queue<process*> process_queue = readFileAndGetProcesses(policy, filename);
 
-    if(policy.compare("FCFS")){
-        escalonator<queue<process*>> e(4, FCFS, &process_queue);
+    if(policy.compare("FCFS") == 0){
+        escalonator<queue<process*>> e(1, FCFS, &process_queue);
         e.run();
     }else{
-        escalonator<min_heap<process*>> e(4, SJF, &process_queue);
+        escalonator<min_heap<process*>> e(1, SJF, &process_queue);
         e.run();
     }
-
-
-
+    
     return 0;
 }

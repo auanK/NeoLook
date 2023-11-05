@@ -41,14 +41,23 @@ class resource {
         }
     }
 
+    // Adiciona um processo em uma das CPUs.
     void add_process(process *process) {
+        // Cria um index aleatório.
         int random_index = rand() % amount;
+        // Adiciona o processo na CPU do index aleatório.
         computer_type[random_index].add_process_cpu(process);
+    }
+
+    // AVerifica se existe processo na rede.
+    bool has_process_in_network(){
+        return !network->empty() || (running_network != nullptr);
     }
 
     ~resource() {
         delete[] computer_type;
         delete network;
+        delete running_network;
     }
 };
 

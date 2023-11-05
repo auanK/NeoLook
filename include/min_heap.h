@@ -7,9 +7,9 @@ template <typename type>
 class min_heap {
    private:
     int (*comparator)(type, type);  // Ponteiro para a função de comparação.
-    int m_size;      // Quantidade de elementos da heap.
-    int m_capacity;  // Capacidade da heap.
-    type *ptr;       // Vetor de ponteiros para os elementos da heap.
+    int m_size;                     // Quantidade de elementos da heap.
+    int m_capacity;                 // Capacidade da heap.
+    type* ptr;                      // Vetor de ponteiros para os elementos da heap.
 
     // Move um elemento para cima na heap, garantindo que o pai seja menor que
     // os filhos. O(log n)
@@ -48,7 +48,6 @@ class min_heap {
         // Se existir, verifica se o filho direito é menor que o filho esquerdo
         // e atualiza o índice do menor filho.
         if ((index_smaller + 1) < this->m_size) {
-
             if (comparator(ptr[index_smaller], ptr[index_smaller + 1]) == 1) {
                 index_smaller += 1;
             }
@@ -69,7 +68,7 @@ class min_heap {
     void reserve() {
         // Cria um novo vetor com o dobro da capacidade e copia os elementos do
         // vetor antigo para o novo vetor.
-        type *aux = new type[m_capacity * 2];
+        type* aux = new type[m_capacity * 2];
         for (int i = 0; i < m_size; i++) {
             aux[i] = ptr[i];
         }
@@ -90,39 +89,32 @@ class min_heap {
     }
 
    public:
-
-    // Construtor da heap, inicializa o ponteiro para função comparator de um determinado tipo,
-    // o vetor de tipos, o tamanho e a capacidade da heap. O(1).
-   min_heap(){
+    // Construtor da heap, inicializa o ponteiro para função comparator de um
+    // determinado tipo, o vetor de tipos, o tamanho e a capacidade da heap.
+    // O(1).
+    min_heap() {
         this->m_size = 0;
         this->m_capacity = 1;
         this->ptr = new type[m_capacity];
     }
 
-    //fazer verificacao no system para chamar o comparator caso a politica seja sjf.
-    void set_comparator(int (*comparator)(type, type)){
+    // fazer verificacao no system para chamar o comparator caso a politica seja
+    // sjf.
+    void set_comparator(int (*comparator)(type, type)) {
         this->comparator = comparator;
     }
 
     // Destrutor da heap, desaloca a memória do vetor. O(1)
-    ~min_heap() { 
-        delete[] ptr; 
-    }
+    ~min_heap() { delete[] ptr; }
 
     // Retorna a quantidade de elementos na heap. O(1)
-    int size() { 
-        return this->m_size; 
-    }
+    int size() { return this->m_size; }
 
     // Retorna a capacidade da heap. O(1)
-    int capacity() {
-         return this->m_capacity; 
-    }
+    int capacity() { return this->m_capacity; }
 
     // Retorna se a heap está vazia. O(1)
-    bool empty() { 
-        return this->m_size == 0; 
-    }
+    bool empty() { return this->m_size == 0; }
 
     // private:
     // Retorna o elemento da heap na posição index. O(1)
@@ -154,7 +146,7 @@ class min_heap {
         return ptr[0];
     }
 
-    public:
+   public:
     // Insere um elemento na heap. O(n) no pior caso(capacidade cheia) e
     // O(log n) no resto dos casos.
     void push(type value) {
@@ -176,7 +168,7 @@ class min_heap {
     type pop() {
         // verifica se a heap está vazia, se estiver, lança uma exceção.
         if (m_size == 0) {
-            //throw std::out_of_range("Heap is empty");
+            // throw std::out_of_range("Heap is empty");
             return nullptr;
         }
 
