@@ -5,7 +5,6 @@
 
 #include "../include/min_heap.h"
 #include "../include/queue.h"
-#include "enumerator.h"
 #include "process.h"
 
 // Classe que armazena um computador.
@@ -62,7 +61,7 @@ class computer {
         return running_disk_2 != nullptr; 
     }
 
-    // Verifica se existe algum processo em execução na rede.
+    // Adiciona um processo na fila de espera da CPU.
     void add_process_cpu(process* process) { 
         cpu->push(process); 
     }
