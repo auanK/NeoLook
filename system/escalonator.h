@@ -153,6 +153,20 @@ class escalonator {
 
                         // Retirando o processo da execucao da CPU.
                         pc->running_cpu = nullptr;
+
+                        p = pc->cpu->pop();
+
+                        if (p != nullptr) {
+                            // Se existir, o processo eh adicionado a execucao da CPU.
+                            pc->running_cpu = p;
+
+                            // Registrando o evento de acesso a CPU.
+                            events_vec[size_events] = (new event
+                            (time, ACCESS_CPU, new process(p->id, p->instant, p->demand_cpu, p->demand_disk, p->demand_network)));
+
+                            // Incrementando o tamanho do vetor de eventos.
+                            size_events++;
+                        }
                     }
                 }
 
@@ -312,6 +326,8 @@ class escalonator {
         for (int i = 0; i < (qtd_process * 8); i++) {
             // Retirando o evento da fila de eventos.
             event* e = events.pop();
+            e->print();
+            std::cout << std::endl;
             // Registrando o evento na matriz de eventos.
             log[e->processo->id][counter_event[e->processo->id]] = e;
             // Incrementando o contador de eventos do processo.
@@ -354,7 +370,7 @@ class escalonator {
         average_wait /= qtd_process;
 
         // Criando um objeto de metricas.
-        metrics m(time, average_time, average_wait, processing_rate);
+        metrics m(time - 1, average_time, average_wait, processing_rate);
 
         // Imprimindo as metricas.
         m.print();
