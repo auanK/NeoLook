@@ -326,7 +326,7 @@ class escalonator {
         for (int i = 0; i < (qtd_process * 8); i++) {
             // Retirando o evento da fila de eventos.
             event* e = events.pop();
-            e->print();
+            // e->print(); (Usado para debugar)
             std::cout << std::endl;
             // Registrando o evento na matriz de eventos.
             log[e->processo->id][counter_event[e->processo->id]] = e;
