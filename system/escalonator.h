@@ -327,11 +327,11 @@ class escalonator {
             // Retirando o evento da fila de eventos.
             event* e = events.pop();
             // e->print(); (Usado para debugar)
-            std::cout << std::endl;
+            // std::cout << std::endl;
             // Registrando o evento na matriz de eventos.
-            log[e->processo->id][counter_event[e->processo->id]] = e;
+            log[e->process_a->id][counter_event[e->process_a->id]] = e;
             // Incrementando o contador de eventos do processo.
-            counter_event[e->processo->id]++;
+            counter_event[e->process_a->id]++;
         }
 
         // Deletando o vetor de contadores de eventos.
@@ -350,9 +350,9 @@ class escalonator {
 
         // Percorrendo cada processo.
         for (int i = 0; i < qtd_process; i++) {
-            double demand_cpu = log[i][0]->processo->demand_cpu;            // Demanda da CPU de quando o processo foi inicializado.
-            double demand_disk = log[i][0]->processo->demand_disk;          // Demanda do disco de quando o processo foi inicializado.
-            double demand_network = log[i][0]->processo->demand_network;    // Demanda da rede de quando o processo foi inicializado.
+            double demand_cpu = log[i][0]->process_a->demand_cpu;            // Demanda da CPU de quando o processo foi inicializado.
+            double demand_disk = log[i][0]->process_a->demand_disk;          // Demanda do disco de quando o processo foi inicializado.
+            double demand_network = log[i][0]->process_a->demand_network;    // Demanda da rede de quando o processo foi inicializado.
 
             double wait_cpu = log[i][2]->instant - log[i][1]->instant;      // Tempo de espera na CPU. (instante de acesso a CPU - instante de espera da CPU)
             double wait_disk = log[i][4]->instant - log[i][3]->instant;     // Tempo de espera no disco. (instante de acesso ao disco - instante de espera do disco)

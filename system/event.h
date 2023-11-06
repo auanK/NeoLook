@@ -8,18 +8,18 @@ class event {
    public:
     int instant;        // Instante em que o evento ocorre.
     type_event type;    // Tipo do evento.
-    process* processo;  // Processo associado ao evento.
+    process* process_a;  // Processo associado ao evento.
 
     // Construtor, inicializa os atributos.
     event(int instant, type_event event, process* p) {
         this->instant = instant;
         this->type = event;
-        this->processo = p;
+        this->process_a = p;
     }
 
     // Destrutor, deleta o processo.
     ~event() { 
-        delete processo; 
+        delete process_a; 
     }
 
     // Printa o evento. (Utilizado para debug)
@@ -51,12 +51,12 @@ class event {
                 break;
         }
 
-        printf("ID:             %d\n", processo->id);
+        printf("ID:             %d\n", process_a->id);
         printf("time:           %d\n", instant);
-        printf("inicio:         %d\n", processo->instant);
-        printf("demand_cpu:     %d\n", processo->demand_cpu);
-        printf("demand_disk:    %d\n", processo->demand_disk);
-        printf("demand_network: %d\n", processo->demand_network);
+        printf("inicio:         %d\n", process_a->instant);
+        printf("demand_cpu:     %d\n", process_a->demand_cpu);
+        printf("demand_disk:    %d\n", process_a->demand_disk);
+        printf("demand_network: %d\n", process_a->demand_network);
     }
 };
 
