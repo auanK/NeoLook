@@ -15,9 +15,9 @@ Em seguida execute o comando ./main <política (SJF ou FCFS)> <arquivo_de_entrad
 Onde o arquivo_de_entrada deve está na pasta src/in. 
 Ao final da execução será gerado um arquivo de saída na pasta src/out com as métricas do sistema.
 
-## Exemplo de execução
+## Exemplo de execução (Windows)
 cd src (acessar a pasta src)
 
 g++ main.cpp -o main (compilar o projeto)
 
-./main.exe SJF in/entrada1.txt 2 (executar o projeto)
+main SJF teste01.txt 2 (executar o projeto)
