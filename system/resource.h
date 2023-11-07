@@ -24,15 +24,17 @@ class resource {
     this->network = new type();
     this->running_network = nullptr;
 
-    // Caso a política seja SJF, seta os comparadores da min_heap nas respectivas filas.s
+    // Caso a política seja SJF, seta os comparadores da min_heap nas respectivas filas.
     if (policy == SJF) {
       // Para cada computador, seta o comparador da CPU e dos discos.
-        for (int i = 0; i < amount; i++) {
-            this->computer_type[i].cpu->set_comparator(&compare_process_cpu);
-            this->computer_type[i].disk_1->set_comparator(&compare_process_disk);
-            this->computer_type[i].disk_2->set_comparator(&compare_process_disk);
+      for (int i = 0; i < amount; i++) {
+        this->computer_type[i].cpu->set_comparator(&compare_process_cpu);
+        this->computer_type[i].disk_1->set_comparator(&compare_process_disk);
+        this->computer_type[i].disk_2->set_comparator(&compare_process_disk);
       }
-        this->network->set_comparator(&compare_process_network);
+
+      // Setando o comparador da rede.
+      this->network->set_comparator(&compare_process_network);
     }
   }
 
