@@ -127,6 +127,10 @@ class queue {
         }
         std::cout << std::endl;
     }
+
+    void set_comparator(int (*compare)(type, type)) {
+        // Método fantasma, utilizado apenas para não haver conflito de compilação.
+    }
 };
 
 #endif
