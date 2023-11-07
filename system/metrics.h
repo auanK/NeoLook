@@ -17,18 +17,8 @@ class metrics {
     double processing_rate;  // Taxa de processamento.
 
    public:
-    // Construtor, inicializa as métricas.
-    /*
-    metrics(int total_time, double average_time, double average_wait, double processing_rate) {
-        this->total_time = total_time;
-        this->average_time = average_time;
-        this->average_wait = average_wait;
-        this->processing_rate = processing_rate;
-    }*/
-
+    // Construtor, calcula e inicializa as métricas.
     metrics(int total_time, int num_process, event*** log) {
-         // Calculando as metricas.
-
         // Tempo medio de resposta = (tempo de espera + tempo de execucao) / numero de processos
         double average_time = 0;
 
