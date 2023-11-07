@@ -5,7 +5,7 @@ Trabalho da cadeira Estrutura de Dados, do curso de Ciência da Computação da 
 
 
 ## Descrição do Projeto
-O trabalho simula um sistema chamado NeoLook que tem como objetivo simular um sistema executando uma série de processos de acordo com a política de escalonamento FCFS ou SJF, para mais informações do projeto, leia o relatório do projeto na pasta [docs].
+O trabalho consiste em criar um sistema chamado NeoLook que tem como objetivo simular um sistema executando uma série de processos de acordo com a política de escalonamento FCFS ou SJF, para mais informações do projeto, leia o relatório do projeto na pasta docs.
 
 ## Como executar o projeto
 Acesse pasta src e execute o comando g++ main.cpp -o main para compilar o projeto.
