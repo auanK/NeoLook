@@ -128,9 +128,11 @@ class queue {
         std::cout << std::endl;
     }
 
-    void set_comparator(int (*compare)(type, type)) {
-        // Método fantasma, utilizado apenas para não haver conflito de compilação.
-    }
+  void set_comparator(int (*compare)(type, type)) {
+    // Esta função foi criada como um espaço reservado,
+    // permitindo que o construtor da classe 'resource' tenha uma
+    // função a ser chamada, independentemente da política usada.
+  }
+  
 };
-
 #endif
