@@ -19,30 +19,31 @@ queue<process*> readFileAndGetProcesses(const string& policy, const string& file
     // Verifica se a política de escalonamento é válida.
     if (policy != "SJF" && policy != "FCFS") {
         cerr << "Política de escalonamento inválida. Use 'SJF' ou 'FCFS'." << endl;
-        exit(1);
+        throw invalid_argument("Política de escalonamento inválida.");
     }
 
     // Cria a fila de processos.
     queue<process*> process_queue;
     // Abre o arquivo de entrada.
-    FILE* file = fopen(filename.c_str(), "r");
+    ifstream file(filename);
 
     // Verifica se o arquivo foi aberto corretamente.
-    if (!file) {
-        cerr << "Erro ao abrir o arquivo de entrada: " << filename << endl;
-        exit(1);
+    if (!file.is_open()) {
+        cerr << "Erro ao abrir o arquivo de entrada." << endl;
+        throw invalid_argument("Erro ao abrir o arquivo de entrada.");
     }
     // Lê o arquivo de entrada e cria os processos.
     int instant, demand_cpu, demand_disk, demand_network;
     int id = 0;
-    while (fscanf(file, "%d %d %d %d", &instant, &demand_cpu, &demand_disk, &demand_network) != EOF) {
-        process* new_process = new process(id, instant, demand_cpu, demand_disk, demand_network);
-        process_queue.push(new_process);
-        id++;
+    while (file >> instant >> demand_cpu >> demand_disk >> demand_network) {
+        // Cria o processo.
+        process* p = new process(id++, instant, demand_cpu, demand_disk, demand_network);
+        // Adiciona o processo na fila.
+        process_queue.push(p);
     }
 
     // Fecha o arquivo de entrada.
-    fclose(file);
+    file.close();
 
     // Retorna a fila de processos.
     return process_queue;
