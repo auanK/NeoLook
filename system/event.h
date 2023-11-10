@@ -6,8 +6,8 @@
 // Classe que armazena os eventos do simulador.
 class event {
    public:
-    int instant;        // Instante em que o evento ocorre.
-    type_event type;    // Tipo do evento.
+    int instant;         // Instante em que o evento ocorre.
+    type_event type;     // Tipo do evento.
     process* process_a;  // Processo associado ao evento.
 
     // Construtor, inicializa os atributos.
@@ -26,37 +26,36 @@ class event {
     void print() {
         switch (type) {
             case INITIALIZE_PROCESS:
-                printf("INITIALIZE_PROCESS\n");
+                std::cout << "INITIALIZE_PROCESS" << std::endl;
                 break;
             case WAIT_CPU:
-                printf("WAIT_CPU\n");
+                std::cout << "WAIT_CPU" << std::endl;
                 break;
             case ACCESS_CPU:
-                printf("ACCESS_CPU\n");
+                std::cout << "ACCESS_CPU" << std::endl;
                 break;
             case WAIT_DISK:
-                printf("WAIT_DISK\n");
+                std::cout << "WAIT_DISK" << std::endl;
                 break;
             case ACCESS_DISK:
-                printf("ACCESS_DISK\n");
+                std::cout << "ACCESS_DISK" << std::endl;
                 break;
             case WAIT_NETWORK:
-                printf("WAIT_NETWORK\n");
+                std::cout << "WAIT_NETWORK" << std::endl;
                 break;
             case ACCESS_NETWORK:
-                printf("ACCESS_NETWORK\n");
+                std::cout << "ACCESS_NETWORK" << std::endl;
                 break;
             case FINISH_PROCESS:
-                printf("FINISH_PROCESS\n");
+                std::cout << "FINISH_PROCESS" << endl;
                 break;
         }
 
-        printf("ID:             %d\n", process_a->id);
-        printf("time:           %d\n", instant);
-        printf("inicio:         %d\n", process_a->instant);
-        printf("demand_cpu:     %d\n", process_a->demand_cpu);
-        printf("demand_disk:    %d\n", process_a->demand_disk);
-        printf("demand_network: %d\n", process_a->demand_network);
+        std::cout << "ID: " << process_a->id << std::endl;
+        std::cout << "Instant: " << instant << std::endl;
+        std::cout << "Demand CPU: " << process_a->demand_cpu << std::endl;
+        std::cout << "Demand Disk: " << process_a->demand_disk << std::endl;
+        std::cout << "Demand Network: " << process_a->demand_network << std::endl;
     }
 };
 

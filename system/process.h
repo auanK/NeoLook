@@ -22,10 +22,11 @@ class process {
 
     // Printa o processo.
     void print() {
-        printf("Instant: %d\n", this->instant);
-        printf("Demand CPU: %d\n", this->demand_cpu);
-        printf("Demand Disk: %d\n", this->demand_disk);
-        printf("Demand Network: %d\n", this->demand_network);
+        std::cout << "ID: " << this->id << std::endl;
+        std::cout << "Instant: " << this->instant << std::endl;
+        std::cout << "Demand CPU: " << this->demand_cpu << std::endl;
+        std::cout << "Demand Disk: " << this->demand_disk << std::endl;
+        std::cout << "Demand Network: " << this->demand_network << std::endl;
     }
 };
 
