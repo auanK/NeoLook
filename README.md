@@ -15,5 +15,7 @@ Em seguida:
 ```bash
 ./main <política (SJF ou FCFS)> <arquivo_de_entrada> <número_de_computadores>
 ```
+
 Onde o arquivo_de_entrada deve está na pasta src/in. 
+
 Ao final da execução será gerado um arquivo de saída na pasta src/out com as métricas do sistema.
