@@ -67,7 +67,7 @@ class metrics {
     // Salvando as métricas em um arquivo.
     void save(string filename, int num_computers, string policy) {
     std::ofstream file;
-    string directory = "out/" + policy + "_" + filename;
+    string directory = "src/out/" + policy + "_" + filename;
     file.open(directory);
     file << "Política de escalonamento: " << policy << std::endl;
     file << "Número de computadores: " << num_computers << std::endl;

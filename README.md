@@ -19,3 +19,6 @@ Em seguida:
 Onde o arquivo_de_entrada deve está na pasta src/in. 
 
 Ao final da execução será gerado um arquivo de saída na pasta src/out com as métricas do sistema.
+
+## Observações
+O relatório do sistema pode ter algumas informações modificadas, pois o sistema foi atualizado após a entrega do relatório, mas o funcionamento do sistema e as explicações do código são as mesmas, apenas alguns métodos foram refatorados.

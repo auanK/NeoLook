@@ -1,6 +1,6 @@
 Política de escalonamento: FCFS
-Número de computadores: 3
-Tempo total de execução: 5043703
-Tempo médio de execução: 2461729.470
-Tempo médio de espera: 2461546.146
-Taxa de processamento: 0.05948070
+Número de computadores: 5
+Tempo total de execução: 3046609
+Tempo médio de execução: 1459893.148
+Tempo médio de espera: 1459709.825
+Taxa de processamento: 0.09847112

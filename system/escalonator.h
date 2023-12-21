@@ -59,43 +59,13 @@ public:
 
         // Loop que executa o escalonamento.
         while (true) {
-            bool has_process_in_system = false;  // Flag que indica se há processo no sistema.
-
-            // Verificando se há processo a ser processado no sistema.
-            for (int i = 0; i < this->system->amount; i++) {
-                // Se houver processo no sistema, a flag é setada para true e o loop é quebrado.
-                if (this->system->computer_type[i].has_process()) {
-                    has_process_in_system = true;
-                    break;
-                }
-            }
-
-            // Se não houver processo na fila de processos, no sistema e na rede, o escalonamento é finalizado.
-            if (process_queue->empty() &&
-                !this->system->has_process_in_network() &&
-                !has_process_in_system) {
+            // Se não houver processo no sistema, ou a serem processados, o escalonamento é encerrado.
+            if (!has_process_in_system()) {
                 break;
             }
 
-            // Enquanto houver processo na fila de processos e o instante de tempo for igual ao instante de chegada do processo, o processo é adicionado ao sistema.
-            while (!process_queue->empty() && process_queue->front()->instant == time) {
-                process* p = process_queue->pop();  // Retirando o processo da fila de processos.
-
-                // Registrando o evento de inicialização do processo.
-                events_vec[size_events] = new event(time, INITIALIZE_PROCESS, new process(p->id, p->instant, p->demand_cpu, p->demand_disk, p->demand_network));
-
-                // Incrementando o tamanho do vetor de eventos.
-                size_events++;
-
-                // Registrando o evento de espera da CPU.
-                events_vec[size_events] = new event(time, WAIT_CPU, new process(p->id, p->instant, p->demand_cpu, p->demand_disk, p->demand_network));
-
-                // Incrementando o tamanho do vetor de eventos.
-                size_events++;
-
-                // Adicionando o processo ao sistema.
-                system->add_process(p);
-            }
+            // Adicionando os processos que chegam no instante de tempo atual ao sistema.
+            add_process_in_system(time);
 
             // Percorrendo cada computador do sistema.
             for (int i = 0; i < system->amount; i++) {
@@ -286,6 +256,61 @@ public:
             time++;
         }
 
+        // Organizando os eventos na matriz de ponteiros para eventos.
+        organize_events();
+
+        // Calculando as métricas e salvando em um objeto.
+        metrics* m = new metrics(time - 1, qtd_process, log);
+
+        // Imprimindo as métricas.
+        m->print();
+
+        // Salvando as métricas em um arquivo.
+        m->save(filename, system->amount, system->policy == SJF ? "SJF" : "FCFS");
+    }
+
+    // Método que verifica se existe processo no sistema.
+    bool has_process_in_system() {
+        // Percorre cada computador do sistema verificando se existe processo em execução.
+        for (int i = 0; i < this->system->amount; i++) {
+            if (this->system->computer_type[i].has_process()) {
+                return true;
+            }
+        }
+
+        // Verifica se existe processo na fila de processos ou na rede.
+        if (!process_queue->empty() || this->system->has_process_in_network()) {
+            return true;
+        }
+
+        // Caso não exista processo no sistema, retorna false.
+        return false;
+    }
+
+    // Método que adiciona os processos que chegam no instante de tempo atual ao sistema.
+    void add_process_in_system(int time) {// Enquanto houver processo na fila de processos e o instante de tempo for igual ao instante de chegada do processo, o processo é adicionado ao sistema.
+        while (!process_queue->empty() && process_queue->front()->instant == time) {
+            process* p = process_queue->pop();  // Retirando o processo da fila de processos.
+            
+            // Registrando o evento de inicialização do processo.
+            events_vec[size_events] = new event(time, INITIALIZE_PROCESS, new process(p->id, p->instant, p->demand_cpu, p->demand_disk, p->demand_network));
+
+            // Incrementando o tamanho do vetor de eventos.
+            size_events++;
+
+            // Registrando o evento de espera da CPU.
+            events_vec[size_events] = new event(time, WAIT_CPU, new process(p->id, p->instant, p->demand_cpu, p->demand_disk, p->demand_network));
+
+            // Incrementando o tamanho do vetor de eventos.
+            size_events++;
+
+            // Adicionando o processo ao sistema.
+            system->add_process(p);
+        }
+    }
+
+    // Organiza os eventos em ordem cronológica.
+    void organize_events() {
         // Cria uma fila de eventos para cada processo (8 eventos por processo)
         for (int i = 0; i < (qtd_process * 8); i++) {
             events.push(events_vec[i]);
@@ -317,15 +342,6 @@ public:
 
         // Deletando o vetor do contador de eventos.
         delete[] counter_event;
-
-        // Calculando as métricas e salvando em um objeto.
-        metrics* m = new metrics(time - 1, qtd_process, log);
-
-        // Imprimindo as métricas.
-        m->print();
-
-        // Salvando as métricas em um arquivo.
-        m->save(filename, system->amount, system->policy == SJF ? "SJF" : "FCFS");
     }
 
     // Destrutor, desaloca os eventos, o sistema e a matriz de eventos.

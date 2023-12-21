@@ -1,6 +1,6 @@
 Política de escalonamento: SJF
-Número de computadores: 3
-Tempo total de execução: 5046635
-Tempo médio de execução: 2107650.246
-Tempo médio de espera: 2107466.922
-Taxa de processamento: 0.05944615
+Número de computadores: 5
+Tempo total de execução: 3037577
+Tempo médio de execução: 1244793.814
+Tempo médio de espera: 1244610.490
+Taxa de processamento: 0.09876392

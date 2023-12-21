@@ -58,8 +58,8 @@ int main(int argc, char* argv[]) {
     }
 
     // Inicializa a semente do gerador de números aleatórios.
-    srand(time(NULL));
-    //srand(123); // Usada para debug.
+    //srand(time(NULL));
+    srand(123); // Usada para debug.
 
     string policy = argv[1];                   // política de escalonamento.
     string filename = argv[2];                 // nome do arquivo de entrada.
