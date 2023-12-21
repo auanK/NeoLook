@@ -66,7 +66,7 @@ int main(int argc, char* argv[]) {
     int numComputers = atoi(argv[3]);          // número de computadores.
 
     // lê o arquivo de entrada e cria a fila de processos.
-    queue<process*> process_queue = readFileAndGetProcesses(policy, "in/" + filename);
+    queue<process*> process_queue = readFileAndGetProcesses(policy, "src/in/" + filename);
 
     // Verifica qual a política de escalonamento selecionada.
     if (policy.compare("FCFS") == 0) {
